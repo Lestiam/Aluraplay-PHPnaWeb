@@ -1,0 +1,34 @@
+Compreendemos nesta aula o conceito de superglobals do PHP, que são variáveis globais criadas automaticamente pelo PHP para nós.
+ Quando dizemos que elas são globais, significa que elas são acessíveis em qualquer ponto de nossa aplicação. Sendo assim, elas não estão limitadas a nenhum escopo.
+
+As principais variáveis globais você já conheceu nessa aula, que são $_POST e $_GET. Mas há também as seguintes superglobais:
+
+$_FILES que contém um array dos arquivos enviados via upload em um formulário utilizando o verbo/método POST;
+$_COOKIE que contém um array associativo com todos os cookies enviados na requisição;
+$_SESSION que nos permite acessar e definir informações na sessão;
+$_REQUEST que possui todos os valores de $_GET, $_POST e $_COOKIE;
+$_ENV que contém todas as variáveis de ambiente passadas para o processo do PHP;
+$_SERVER que possui informações do servidor Web, como os cabeçalhos da requisição, o caminho acessado, etc.
+ Todas as chaves desse array são criadas pelo servidor web, então elas podem variar de servidor para servidor.
+
+ 1)Se tratando de entrada de dados na web (como com formulário), todo cuidado é pouco. Entramos só na superfície desse oceano que é o assunto de segurança
+ e filtramos alguns dados que recebemos da requisição.
+ Qual a diferença entre filter_var e filter_input?
+
+ A função filter_input filtra os dados recebidos da requisição, enquanto filter_var filtra o valor de qualquer variável que tenhamos no código.
+
+
+ Com filter_input podemos filtrar os dados provenientes das requisições HTTP. Podemos filtrar os valores recebidos em $_GET, $_POST, $_COOKIE, $_SERVER ou $_ENV…
+ Já a filter_var serve para filtrarmos variáveis comuns em nosso código.
+
+
+
+ Existe um detalhe importante sobre funções de filtros que você precisa saber!
+
+ A função filter_input retorna o nosso dado filtrado em caso de sucesso, mas em caso de falha, você sabia que ela pode retornar false ou null?
+
+ Caso o filtro falhe, pois a validação foi mal sucedida, a função vai retornar false. Ou seja, se o ID passado na requisição não for um número inteiro,
+ receberemos o valor false e nosso código de validação funciona.
+
+ Agora se o valor nem ao menos for passado na requisição, então a função retorna null, indicando que a validação nem foi realizada já que não há valor para validar.
+ Por isso devemos adicionar essa condição a nossos ifs que verificam a corretude do parâmetro id. ;-)
