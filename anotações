@@ -32,3 +32,14 @@ $_SERVER que possui informações do servidor Web, como os cabeçalhos da requis
 
  Agora se o valor nem ao menos for passado na requisição, então a função retorna null, indicando que a validação nem foi realizada já que não há valor para validar.
  Por isso devemos adicionar essa condição a nossos ifs que verificam a corretude do parâmetro id. ;-)
+
+
+ 2)Até aqui, você aprendeu sobre a importância de criar um ponto único de entrada em nossa aplicação.
+ Toda e qualquer requisição que chegar em nosso servidor passará por esse código que vamos criar, chamado de: front controller.
+ Que vantagens isso traz para nosso sistema?
+ Com um ponto único de entrada, podemos filtrar todas as requisições e até realizar logs se quisermos.
+
+
+ Dentro um ponto único de entrada em nossa aplicação, podemos realizar um filtro em todas as requisições, realizar logs,
+ carregar nosso código de autoload uma só vez, dentre várias outras vantagens que veremos mais à frente.
+ front-controller é um controlador de requisições, controla o que esta entrando no nosso sistema, receber todas as requisições e direcionar para onde for necessário
