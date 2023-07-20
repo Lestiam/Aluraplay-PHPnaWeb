@@ -27,6 +27,12 @@ $statement->bindValue(':url', $url);
 $statement->bindValue(':title', $titulo);
 $statement->bindValue(':id', $id, PDO::PARAM_INT);
 
+$video = new \Alura\Mvc\Entity\Video($url, $titulo);
+$video->setId($id);
+
+$repository = new \Alura\Mvc\Repository\VideoRepository($pdo);
+$repository->update($video);
+
 if ($statement->execute() === false) {
     header('Location: /?sucesso=0'); //envio um cabeçalho com Location que redireciona o usuario para a pagina inicial. Não é o php que redireciona o usuario, é o proprio navegador, quando ele interpreta ele cabeçalho
 } else {

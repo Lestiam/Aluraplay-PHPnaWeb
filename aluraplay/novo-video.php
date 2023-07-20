@@ -15,12 +15,9 @@ if ($titulo === false) {
     exit();
 }
 
-$sql = 'INSERT INTO videos (url, title) VALUES (?,?);';//insira em videos os valores de url e titulo que vão ser valores que eu vou informar aqui no meu prepare statement
-$statement = $pdo->prepare($sql);
-$statement->bindValue(1, $url); //o post é um metodo global do PHP que pega a requisição, o primeiro prametro eu pego o parametro da url
-$statement->bindValue(2, $titulo); //e neste eu pego o parametro do video
+$repository = new \Alura\Mvc\Repository\VideoRepository($pdo);
 
-if ($statement->execute() === false) {
+if ($repository->add(new \Alura\Mvc\Entity\Video($url, $titulo)) === false) {
     header('Location: /?sucesso=0'); //envio um cabeçalho com Location que redireciona o usuario para a pagina inicial. Não é o php que redireciona o usuario, é o proprio navegador, quando ele interpreta ele cabeçalho
 } else {
     header('Location: /?sucesso=1');

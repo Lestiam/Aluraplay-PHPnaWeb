@@ -43,3 +43,14 @@ $_SERVER que possui informações do servidor Web, como os cabeçalhos da requis
  Dentro um ponto único de entrada em nossa aplicação, podemos realizar um filtro em todas as requisições, realizar logs,
  carregar nosso código de autoload uma só vez, dentre várias outras vantagens que veremos mais à frente.
  front-controller é um controlador de requisições, controla o que esta entrando no nosso sistema, receber todas as requisições e direcionar para onde for necessário
+
+
+3) Fizemos agora com que todos os nossos controladores de requisição implementem uma interface em comum, chamada Controller.
+   Para que criamos uma interface e fizemos nossos controladores implementarem-na?
+
+
+Para que todos os controladores possam ser tratados de forma semelhante em nosso front controller (index.php).
+
+
+Garantindo que todos os nossos controladores implementem uma interface em comum, expondo um método para processar a
+ requisição, podemos fazer uso deles no front controller de forma semelhante sem maiores preocupações.
