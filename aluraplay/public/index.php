@@ -13,30 +13,25 @@ use Alura\Mvc\Controller\{
 };
 use Alura\Mvc\Repository\VideoRepository;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php'; //se eu etnho um arquivo do php que retorna algo, como nesse caso, então quando eu fizer o require dele, esse require vai retornar o valor que este arquivo retornou. O que tiver na classe routes, vai vir pra variavel routes
 
 $dbPath = __DIR__ . '/../banco.sqlite';
 $pdo = new PDO("sqlite:$dbPath");
 $videoRepository = new VideoRepository($pdo); //é a minha dependencia
 
-if (!array_key_exists('PATH_INFO', $_SERVER) || $_SERVER['PATH_INFO'] === '/') { //este $_SERVER serve também para ler os cabeçalhos do php, ou seja, a página ao qual estou acessando
-    $controller = new VideoListController($videoRepository); //injeta a dependencia no nosso controller
-} elseif ($_SERVER['PATH_INFO'] === '/novo-video') {
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $controller = new VideoFormController($videoRepository);
-    } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $controller = new NewVideoController($videoRepository);
-    }
-} elseif ($_SERVER['PATH_INFO'] === '/editar-video') {
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $controller = new VideoFormController($videoRepository);
-    } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $controller = new EditVideoController($videoRepository);
-    }
-} elseif ($_SERVER['PATH_INFO'] === '/remover-video') {
-    $controller = new DeleteVideoController($videoRepository);
+$routes = require_once __DIR__ . '/../config/routes.php';
+
+$pathInfo = $_SERVER['PATH_INFO'] ?? '/'; //path_info = a server mas se ele não existir, vai ser igual a / padrão
+$httpMethod = $_SERVER['REQUEST_METHOD'];
+
+$key = "$httpMethod|$pathInfo";
+if (array_key_exists($key, $routes)) { //se a minha definição de rota existir.... eu faço isso
+    $controllerClass = $routes["$httpMethod|$pathInfo"]; //o que tiver dentro de routes $httpMethod|$pathInfo, vai retornar uma string que vai ter a classe do controller
+
+    $controller = new $controllerClass($videoRepository); //todos os meus controller precisam do videoRepository
 } else {
-    $controller = new Error404Controller($videoRepository);
+    $controller = new Error404Controller();
 }
 /** @var Controller $controller */
 $controller->processaRequisicao();
+

@@ -54,3 +54,11 @@ Para que todos os controladores possam ser tratados de forma semelhante em nosso
 
 Garantindo que todos os nossos controladores implementem uma interface em comum, expondo um método para processar a
  requisição, podemos fazer uso deles no front controller de forma semelhante sem maiores preocupações.
+
+ 4)Neste vídeo nós refatoramos o código que define nossas rotas. Nele, fazemos o mapeamento de um verbo HTTP e uma URL para uma classe Controller.
+   Como foi possível instanciar um objeto de uma classe a partir de uma string com o nome dessa classe?
+
+   O PHP permite que nós utilizemos uma variável como o nome da classe que queremos instanciar, como new $nomeDaClasse();.
+    Isso facilitou nossa vida fazendo com que o conhecimento de Reflection não fosse necessário. Mas para casos mais complexos você pode precisar de Reflection, por isso,
+     aqui está o link do curso de reflection aqui na Alura:
+   Metaprogramação com PHP: API de Reflection
