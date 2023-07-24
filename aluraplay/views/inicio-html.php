@@ -19,7 +19,7 @@
 <header>
 
     <nav class="cabecalho">
-        <a class="logo" href="../listagem-videos.php"></a>
+        <a class="logo" href="/video-list.php'"></a>
 
         <div class="cabecalho__icones">
             <a href="/novo-video" class="cabecalho__videos"></a>
